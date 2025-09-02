@@ -1,14 +1,14 @@
+import LeagueTable from "../components/LeagueTable";
 import { displayLeague, LEAGUE_ID } from "../data/fpl-league-data";
 import type { PlayerInformation } from "../types";
-import LeagueTable from "../components/LeagueTable";
 
 export default async function Home() {
   const leagueData = await displayLeague(LEAGUE_ID)
   const standings = leagueData['standings']['results']
-  const allPlayerInformation: PlayerInformation[] = standings.map(d => ({ 
-    name: d['player_name'], 
-    team_name: d['entry_name'], 
-    total: d['total'] 
+  const allPlayerInformation: PlayerInformation[] = standings.map(d => ({
+    name: d['player_name'],
+    team_name: d['entry_name'],
+    total: d['total']
   }))
 
   return (
