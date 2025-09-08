@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "freaktasy premier league🥵",
   description: "Used for FPL 25-26",
+  icons: {
+    icon: "/pl.svg",
+  },
 };
 
 export default function RootLayout({
