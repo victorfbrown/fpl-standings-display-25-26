@@ -61,4 +61,5 @@ export interface PlayerInformation {
 	name: string;
 	team_name: string;
 	total: number;
+	current_matchweek: number;
 }

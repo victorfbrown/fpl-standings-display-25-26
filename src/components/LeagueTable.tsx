@@ -25,6 +25,9 @@ export default function LeagueTable({ players }: LeagueTableProps) {
                             <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider">
                                 Total Points
                             </th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider">
+                                Current Matchweek
+                            </th>
                         </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
@@ -44,6 +47,9 @@ export default function LeagueTable({ players }: LeagueTableProps) {
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-black">
                                     {player.total.toLocaleString()}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-black">
+                                    {player.current_matchweek}
                                 </td>
                             </tr>
                         ))}

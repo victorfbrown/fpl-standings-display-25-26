@@ -33,10 +33,12 @@ export async function getLeagueData(leagueId: number): Promise<ClassicLeague> {
 
 export function formatStandingsData(leagueData: ClassicLeague) {
 	const standingsResults: ClassicLeagueEntry[] = leagueData['standings']['results'];
+	console.log(standingsResults);
 	const allPlayerInformation: PlayerInformation[] = standingsResults.map((d) => ({
 		name: d['player_name'],
 		team_name: d['entry_name'],
 		total: d['total'],
+		current_matchweek: d['event_total'],
 	}));
 	return allPlayerInformation;
 }

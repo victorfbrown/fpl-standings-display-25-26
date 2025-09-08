@@ -1,5 +1,5 @@
 import LeagueTable from "../components/LeagueTable";
-import { LEAGUE_ID, formatStandingsData, getLeagueData, resetFormattedStandingsData } from "../data/fpl-league-data";
+import { resetFormattedStandingsData } from "../data/fpl-league-data";
 import type { PlayerInformation } from "../types";
 
 export default async function Home() {
