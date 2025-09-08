@@ -73,15 +73,17 @@ export async function resetFormattedStandingsData() {
 	const leagueData = await getLeagueData(LEAGUE_ID);
 	const formattedStandingsData = formatStandingsData(leagueData);
 
-	const postMW4Data = formattedStandingsData.map((player) => {
-		const baseline = preMW4Data.find(
-			(b) => b.name === player.name && b.team_name === player.team_name
-		);
-		return {
-			...player,
-			total: baseline ? player.total - baseline.total : player.total,
-		};
-	});
+	const baselineMap = new Map(preMW4Data.map((player) => [player.name, player.total]));
 
+	const postMW4Data = [];
+	for (const player of formattedStandingsData) {
+		const baselineTotal = baselineMap.get(player.name);
+		postMW4Data.push({
+			...player,
+			total: baselineTotal !== undefined ? player.total - baselineTotal : player.total,
+		});
+	}
+
+	postMW4Data.sort((a, b) => a.total - b.total);
 	return postMW4Data;
 }
