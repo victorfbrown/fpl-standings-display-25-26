@@ -11,6 +11,7 @@
   "dependencies": {
     "@types/superagent": "^8.1.9",
     "next": "15.5.2",
+    "prettier": "^3.6.2",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "superagent": "^10.2.3"

@@ -1,5 +1,5 @@
 import superagent from 'superagent';
-import type { ClassicLeague } from '../types/fpl';
+import type { ClassicLeague, ClassicLeagueEntry, PlayerInformation } from '../types/fpl';
 
 export const LEAGUE_ID = 2362187;
 
@@ -26,7 +26,62 @@ export async function fetchClassicLeague(
 	return response.body;
 }
 
-export async function displayLeague(leagueId: number) {
+export async function getLeagueData(leagueId: number): Promise<ClassicLeague> {
 	const leagueData = await fetchClassicLeague(leagueId);
 	return leagueData;
+}
+
+export function formatStandingsData(leagueData: ClassicLeague) {
+	const standingsResults: ClassicLeagueEntry[] = leagueData['standings']['results'];
+	const allPlayerInformation: PlayerInformation[] = standingsResults.map((d) => ({
+		name: d['player_name'],
+		team_name: d['entry_name'],
+		total: d['total'],
+	}));
+	return allPlayerInformation;
+}
+
+export async function resetFormattedStandingsData() {
+	const preMW4Data = [
+		{
+			name: 'Yazan Baghdady',
+			team_name: 'Salahm Dunk',
+			total: 111,
+		},
+		{
+			name: 'Elias W',
+			team_name: 'meep meep',
+			total: 99,
+		},
+		{
+			name: 'Mateo Porter',
+			team_name: 'Intl Richarliason',
+			total: 73,
+		},
+		{
+			name: 'JJ Davidoff',
+			team_name: 'Luton Town',
+			total: 68,
+		},
+		{
+			name: 'Lucas Frisancho',
+			team_name: '300 Ping Frong',
+			total: 44,
+		},
+	];
+
+	const leagueData = await getLeagueData(LEAGUE_ID);
+	const formattedStandingsData = formatStandingsData(leagueData);
+
+	const postMW4Data = formattedStandingsData.map((player) => {
+		const baseline = preMW4Data.find(
+			(b) => b.name === player.name && b.team_name === player.team_name
+		);
+		return {
+			...player,
+			total: baseline ? player.total - baseline.total : player.total,
+		};
+	});
+
+	return postMW4Data;
 }
