@@ -1,10 +1,12 @@
+import { getCurrentMatchweek } from "@/data/fpl-league-data";
 import type { PlayerInformation } from "../types";
 
 interface LeagueTableProps {
     players: PlayerInformation[];
 }
 
-export default function LeagueTable({ players }: LeagueTableProps) {
+export default async function LeagueTable({ players }: LeagueTableProps) {
+    const currentMatchweek = await getCurrentMatchweek()
     return (
         <div className="w-full max-w-4xl mx-auto">
             <h2 className="text-2xl font-bold mb-6 text-center">League Standings</h2>
@@ -26,7 +28,7 @@ export default function LeagueTable({ players }: LeagueTableProps) {
                                 Total Points
                             </th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider">
-                                Current Matchweek
+                                MW {currentMatchweek} Points
                             </th>
                         </tr>
                     </thead>
@@ -49,7 +51,7 @@ export default function LeagueTable({ players }: LeagueTableProps) {
                                     {player.total.toLocaleString()}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-black">
-                                    {player.current_matchweek}
+                                    {player.current_matchweek_points}
                                 </td>
                             </tr>
                         ))}

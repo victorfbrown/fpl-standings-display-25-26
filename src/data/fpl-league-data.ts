@@ -33,12 +33,11 @@ export async function getLeagueData(leagueId: number): Promise<ClassicLeague> {
 
 export function formatStandingsData(leagueData: ClassicLeague) {
 	const standingsResults: ClassicLeagueEntry[] = leagueData['standings']['results'];
-	console.log(standingsResults);
 	const allPlayerInformation: PlayerInformation[] = standingsResults.map((d) => ({
 		name: d['player_name'],
 		team_name: d['entry_name'],
 		total: d['total'],
-		current_matchweek: d['event_total'],
+		current_matchweek_points: d['event_total'],
 	}));
 	return allPlayerInformation;
 }
@@ -88,4 +87,12 @@ export async function resetFormattedStandingsData() {
 
 	postMW4Data.sort((a, b) => a.total - b.total);
 	return postMW4Data;
+}
+
+export async function getCurrentMatchweek(): Promise<number> {
+	const response = await superagent.get('https://fantasy.premierleague.com/api/bootstrap-static/');
+	const currentEvent = response.body.events.find(
+		(event: { is_current: boolean; id: number }) => event.is_current === true
+	);
+	return currentEvent?.id + 1 || 1;
 }
