@@ -72,6 +72,7 @@ export async function resetFormattedStandingsData() {
 		{
 			name: 'Isaiah Buchberger',
 			team_name: 'A GUESS',
+			total: 50,
 		},
 	];
 
