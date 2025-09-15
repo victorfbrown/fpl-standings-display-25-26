@@ -12,7 +12,7 @@ export default async function Home() {
         <h1 className="text-4xl font-bold text-center mb-8 text-gray-900 dark:text-gray-100">
           FPL League Standings - Matchweek {currentMatchweek}
         </h1>
-        <LeagueTable players={allPlayerInformation} />
+        <LeagueTable players={allPlayerInformation} matchweek={currentMatchweek} />
       </div>
     </div>
   );

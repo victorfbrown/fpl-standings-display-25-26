@@ -1,12 +1,6 @@
-import { getCurrentMatchweek } from "@/data/fpl-league-data";
-import type { PlayerInformation } from "../types";
+import { LeagueTableProps } from '../types';
 
-interface LeagueTableProps {
-    players: PlayerInformation[];
-}
-
-export default async function LeagueTable({ players }: LeagueTableProps) {
-    const currentMatchweek = await getCurrentMatchweek()
+export default async function LeagueTable(leagueInformation: LeagueTableProps) {
     return (
         <div className="w-full max-w-4xl mx-auto">
             <h2 className="text-2xl font-bold mb-6 text-center">League Standings</h2>
@@ -28,12 +22,12 @@ export default async function LeagueTable({ players }: LeagueTableProps) {
                             </th>
 
                             <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider">
-                                MW {currentMatchweek}
+                                MW {leagueInformation.matchweek}
                             </th>
                         </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                        {players.map((player, index) => (
+                        {leagueInformation.players.map((player, index) => (
                             <tr
                                 key={`${player.name}-${player.team_name}`}
                                 className={`hover:bg-gray-100 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}

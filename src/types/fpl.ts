@@ -63,3 +63,8 @@ export interface PlayerInformation {
 	total: number;
 	current_matchweek_points: number;
 }
+
+export interface LeagueTableProps {
+	players: PlayerInformation[];
+	matchweek: number;
+}
