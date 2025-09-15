@@ -21,10 +21,10 @@ export default async function LeagueTable({ players }: LeagueTableProps) {
                                 Total Points
                             </th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider">
-                                Team Name
+                                Player Name
                             </th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider">
-                                Player Name
+                                Team Name
                             </th>
 
                             <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider">
@@ -45,10 +45,10 @@ export default async function LeagueTable({ players }: LeagueTableProps) {
                                     {player.total.toLocaleString()}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
-                                    {player.team_name}
+                                    {player.name}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
-                                    {player.name}
+                                    {player.team_name}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-black">
                                     {player.current_matchweek_points}
