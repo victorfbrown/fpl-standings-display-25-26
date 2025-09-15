@@ -17,18 +17,18 @@ export default async function LeagueTable({ players }: LeagueTableProps) {
                             <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider">
                                 Rank
                             </th>
-
+                            <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider">
+                                Total Points
+                            </th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider">
                                 Team Name
                             </th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider">
                                 Player Name
                             </th>
+
                             <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider">
-                                Total Points
-                            </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider">
-                                MW {currentMatchweek} Points
+                                MW {currentMatchweek}
                             </th>
                         </tr>
                     </thead>
@@ -41,14 +41,14 @@ export default async function LeagueTable({ players }: LeagueTableProps) {
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-black">
                                     {index + 1}
                                 </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-black">
+                                    {player.total.toLocaleString()}
+                                </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
                                     {player.team_name}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
                                     {player.name}
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-black">
-                                    {player.total.toLocaleString()}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-black">
                                     {player.current_matchweek_points}
