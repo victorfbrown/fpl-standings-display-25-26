@@ -69,6 +69,10 @@ export async function resetFormattedStandingsData() {
 			team_name: '300 Ping Frong',
 			total: 44,
 		},
+		{
+			name: 'Isaiah Buchberger',
+			team_name: 'A GUESS',
+		},
 	];
 
 	const leagueData = await getLeagueData(LEAGUE_ID);
@@ -85,7 +89,7 @@ export async function resetFormattedStandingsData() {
 		});
 	}
 
-	postMW4Data.sort((a, b) => a.total - b.total);
+	postMW4Data.sort((a, b) => b.total - a.total);
 	return postMW4Data;
 }
 
