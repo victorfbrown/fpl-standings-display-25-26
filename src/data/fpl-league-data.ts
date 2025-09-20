@@ -1,4 +1,3 @@
-import superagent from 'superagent';
 import type { ClassicLeague, ClassicLeagueEntry, PlayerInformation } from '../types/fpl';
 
 export const LEAGUE_ID = 2362187;
@@ -19,11 +18,17 @@ export async function fetchClassicLeague(
 		phase: 1,
 	}
 ): Promise<ClassicLeague> {
-	const response = await superagent.get(
-		`https://fantasy.premierleague.com/api/leagues-classic/${leagueId}/standings/?page_new_entries=${pageNewEntries}&page_standings=${pageStandings}&phase=${phase}`
-	);
+	const url = `https://fantasy.premierleague.com/api/leagues-classic/${leagueId}/standings/?page_new_entries=${pageNewEntries}&page_standings=${pageStandings}&phase=${phase}`;
 
-	return response.body;
+	const response = await fetch(url, {
+		next: { revalidate: 60, tags: ['fpl-league'] },
+	});
+
+	if (!response.ok) {
+		throw new Error(`Failed to fetch league data: ${response.status}`);
+	}
+
+	return response.json();
 }
 
 export async function getLeagueData(leagueId: number): Promise<ClassicLeague> {
@@ -95,8 +100,16 @@ export async function resetFormattedStandingsData() {
 }
 
 export async function getCurrentMatchweek(): Promise<number> {
-	const response = await superagent.get('https://fantasy.premierleague.com/api/bootstrap-static/');
-	const currentEvent = response.body.events.find(
+	const response = await fetch('https://fantasy.premierleague.com/api/bootstrap-static/', {
+		next: { revalidate: 3600, tags: ['fpl-bootstrap'] },
+	});
+
+	if (!response.ok) {
+		throw new Error(`Failed to fetch bootstrap data: ${response.status}`);
+	}
+
+	const data = await response.json();
+	const currentEvent = data.events.find(
 		(event: { is_current: boolean; id: number }) => event.is_current === true
 	);
 	return currentEvent?.id + 1 || 1;
