@@ -101,7 +101,7 @@ export async function resetFormattedStandingsData() {
 
 export async function getCurrentMatchweek(): Promise<number> {
 	const response = await fetch('https://fantasy.premierleague.com/api/bootstrap-static/', {
-		next: { revalidate: 3600, tags: ['fpl-bootstrap'] },
+		next: { revalidate: 60, tags: ['fpl-bootstrap'] },
 	});
 
 	if (!response.ok) {
