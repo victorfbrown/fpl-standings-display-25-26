@@ -94,6 +94,7 @@ export async function resetFormattedStandingsData() {
 			total: baselineTotal !== undefined ? player.total - baselineTotal : player.total,
 		});
 	}
+	console.log(postMW4Data)
 
 	postMW4Data.sort((a, b) => b.total - a.total);
 	return postMW4Data;
